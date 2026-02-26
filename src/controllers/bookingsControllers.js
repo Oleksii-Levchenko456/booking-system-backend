@@ -1,7 +1,18 @@
 import { Booking } from '../models/booking.js';
 
+// export const getAllReservations = async (req, res) => {
+//   const bookings = await Booking.find();
+//   if (bookings.length === 0) {
+//     return res.status(200).json([]);
+//   }
+//   res.status(200).json(bookings);
+// };
+
 export const getAllReservations = async (req, res) => {
-  const bookings = await Booking.find();
+  const bookings = await Booking.find()
+    .populate('clientId', 'name')
+    .populate('businessId', 'name');
+
   if (bookings.length === 0) {
     return res.status(200).json([]);
   }
