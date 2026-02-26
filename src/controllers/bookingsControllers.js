@@ -3,7 +3,7 @@ import { Booking } from '../models/booking.js';
 export const getAllReservations = async (req, res) => {
   const bookings = await Booking.find();
   if (bookings.length === 0) {
-    return res.status(200).json({ message: 'No reservations yet' });
+    return res.status(200).json([]);
   }
   res.status(200).json(bookings);
 };
@@ -12,14 +12,21 @@ export const getClientReservations = async (req, res) => {
   const id = req.user.id;
   const bookings = await Booking.find({ clientId: id });
   if (bookings.length === 0) {
-    return res.status(204).json({ message: 'No reservations yet' });
+    return res.status(200).json([]);
   }
   res.status(200).json(bookings);
 };
 
-// Не завершений контроллер
 export const createReservation = async (req, res) => {
-  const reservation = await Booking.create(req.body);
+  const clientId = req.user.id;
+  const { businessId, date, time } = req.body;
+  const reservation = await Booking.create({
+    clientId,
+    businessId,
+    date,
+    time,
+    status: 'active',
+  });
   res.status(201).json(reservation);
 };
 
