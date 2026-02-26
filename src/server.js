@@ -1,7 +1,7 @@
 // src/server.js
 import express from 'express';
 import cors from 'cors';
-import { conectMongoDB } from './db/conectMongoDb.js';
+import { conectMongoDB } from './db/conectMongoDB.js';
 import pino from 'pino-http';
 import { errorHandler } from './middleware/errorHandler.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
